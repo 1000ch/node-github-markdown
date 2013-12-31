@@ -68,6 +68,7 @@ async.each(targetFiles, function(file, index, files) {
         encoding: 'utf8',
         flag: 'w'
       });
+      fs.unlinkSync('assets/temporary.html');
     });
   });
 }, function(error, result) {
