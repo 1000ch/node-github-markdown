@@ -1,11 +1,8 @@
 {
-  "name": "node-github-markdown",
+  "name": "github-markdown",
   "version": "0.0.1",
   "description": "Parse GitHub flavored markdown to html.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "markdown"
   ],
