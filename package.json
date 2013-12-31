@@ -1,8 +1,10 @@
 {
   "name": "github-markdown",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Parse GitHub flavored markdown to html.",
-  "main": "index.js",
+  "bin": {
+    "gm": "index.js"
+  },
   "keywords": [
     "markdown"
   ],
