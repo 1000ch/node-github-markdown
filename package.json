@@ -1,0 +1,21 @@
+{
+  "name": "node-github-markdown",
+  "version": "0.0.1",
+  "description": "Parse GitHub flavored markdown to html.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "markdown"
+  ],
+  "author": "1000ch",
+  "license": "MIT",
+  "dependencies": {
+    "marked": "~0.3.0",
+    "optimist": "~0.6.0",
+    "glob": "~3.2.7",
+    "jade": "~1.0.2",
+    "async": "~0.2.9"
+  }
+}
