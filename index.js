@@ -30,7 +30,7 @@ argv._.filter(function(arg) {
 }).forEach(function(arg) {
   if (_isFile(arg)) {
     targetFiles.push(arg);
-  } else if (_isDir) {
+  } else if (_isDir(arg)) {
     fs.readdirSync(arg).forEach(function(file) {
       targetFiles.push(file);
     });
