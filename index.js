@@ -53,15 +53,11 @@ async.each(targetFiles, function(file, index, files) {
       throw error;
     }
     
-    var html = marked(data);
-    fs.writeFileSync(__dirname + '/assets/temporary.html', html, {
-      encoding: 'utf8',
-      flag: 'w'
-    });
-
+    var content = marked(data);
     var basename = path.basename(file, '.md');
     jade.renderFile(__dirname + '/assets/template.jade', {
-      pretty: true
+      pretty: true,
+      content: content
     }, function(error, html) {
       if (error) {
         throw error;
@@ -70,7 +66,6 @@ async.each(targetFiles, function(file, index, files) {
         encoding: 'utf8',
         flag: 'w'
       });
-      fs.unlinkSync(__dirname + '/assets/temporary.html');
     });
   });
 }, function(error, result) {
