@@ -1,10 +1,9 @@
-# node-github-markdown
+# [node-github-markdown](https://npmjs.org/package/github-markdown)
 
 ## About
 
 Parse GitHub flavored markdown to html.
 
-[![Build Status](https://travis-ci.org/1000ch/node-github-markdown.png?branch=master)](https://travis-ci.org/1000ch/node-github-markdown)
 [![NPM version](https://badge.fury.io/js/github-markdown.png)](http://badge.fury.io/js/github-markdown)
 [![Dependency Status](https://david-dm.org/1000ch/node-github-markdown.png)](https://david-dm.org/1000ch/node-github-markdown)
 [![devDependency Status](https://david-dm.org/1000ch/node-github-markdown/dev-status.png)](https://david-dm.org/1000ch/node-github-markdown#info=devDependencies)
