@@ -24,6 +24,14 @@ Parse markdowns.
 $ githubmd readme.md
 ```
 
+### `--title`
+
+Specify HTML title.
+
+```sh
+$ githubmd --title='Title of HTML' target.md
+```
+
 ## License
 
 MIT

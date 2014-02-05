@@ -55,6 +55,7 @@ async.each(targetFiles, function (file, index, files) {
     var name = path.basename(file, '.md') + '.html';
     jade.renderFile(__dirname + '/assets/template.jade', {
       pretty: true,
+      title: argv.title || 'GitHub Flavored Markdown',
       content: marked(data)
     }, function (error, html) {
       if (error) {
