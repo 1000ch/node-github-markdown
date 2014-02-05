@@ -25,18 +25,18 @@ if (argv._.length === 0) {
 
 var targetFiles = [];
 
-argv._.filter(function(arg) {
+argv._.filter(function (arg) {
   return fs.existsSync(arg);
-}).forEach(function(arg) {
+}).forEach(function (arg) {
   if (_isFile(arg)) {
     targetFiles.push(arg);
   } else if (_isDir(arg)) {
-    fs.readdirSync(arg).forEach(function(file) {
+    fs.readdirSync(arg).forEach(function (file) {
       targetFiles.push(file);
     });
   } else {
-    glob(arg, function(error, files) {
-      files.forEach(function(file) {
+    glob(arg, function (error, files) {
+      files.forEach(function (file) {
         targetFiles.push(file);
       });
     });
@@ -44,31 +44,26 @@ argv._.filter(function(arg) {
 });
 
 if (targetFiles.length === 0) {
-  throw new Error('There is no markdown files');
+  throw new Error('There is no markdown files.');
 }
 
-async.each(targetFiles, function(file, index, files) {
-  fs.readFile(file, {encoding: 'utf8'}, function(error, data) {
+async.each(targetFiles, function (file, index, files) {
+  fs.readFile(file, {encoding: 'utf8'}, function (error, data) {
     if (error) {
       throw error;
     }
-    
-    var content = marked(data);
-    var basename = path.basename(file, '.md');
+    var name = path.basename(file, '.md') + '.html';
     jade.renderFile(__dirname + '/assets/template.jade', {
       pretty: true,
-      content: content
-    }, function(error, html) {
+      content: marked(data)
+    }, function (error, html) {
       if (error) {
         throw error;
       }
-      fs.writeFileSync(basename + '.html', html, {
-        encoding: 'utf8',
-        flag: 'w'
-      });
+      fs.writeFileSync(name, html, {encoding: 'utf8', flag: 'w'});
     });
   });
-}, function(error, result) {
+}, function (error, result) {
   if (error) {
     throw error;
   }
