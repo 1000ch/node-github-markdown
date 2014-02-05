@@ -1,9 +1,9 @@
 {
   "name": "github-markdown",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Parse GitHub flavored markdown to html.",
   "bin": {
-    "gfm": "index.js"
+    "githubmd": "index.js"
   },
   "keywords": [
     "markdown"
@@ -11,7 +11,7 @@
   "author": "1000ch",
   "license": "MIT",
   "dependencies": {
-    "marked": "~0.3.0",
+    "marked": "~0.3.1",
     "optimist": "~0.6.0",
     "glob": "~3.2.8",
     "jade": "~1.0.2",
