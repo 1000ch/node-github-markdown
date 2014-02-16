@@ -1,6 +1,6 @@
 {
   "name": "github-markdown",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Parse GitHub flavored markdown to html.",
   "repository": {
     "type": "git",
@@ -19,6 +19,7 @@
     "optimist": "~0.6.0",
     "glob": "~3.2.8",
     "jade": "~1.0.2",
-    "async": "~0.2.10"
+    "async": "~0.2.10",
+    "pygmentize-bundled": "~2.1.0"
   }
 }
