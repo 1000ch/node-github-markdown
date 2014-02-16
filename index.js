@@ -6,6 +6,7 @@ var path = require('path');
 var argv = require('optimist').argv;
 var jade = require('jade');
 var marked = require('marked');
+var pygmentize = require('pygmentize-bundled');
 var glob = require('glob');
 var async = require('async');
 
@@ -16,7 +17,12 @@ marked.setOptions({
   pedantic: false,
   sanitize: false,
   smartLists: true,
-  smartypants: false
+  smartypants: false,
+  highlight: function (code, lang, callback) {
+    pygmentize({ lang: lang, format: 'html' }, code, function (error, result) {
+      callback(error, result.toString());
+    });
+  }
 });
 
 if (argv._.length === 0) {
@@ -53,15 +59,17 @@ async.each(targetFiles, function (file, index, files) {
       throw error;
     }
     var name = path.basename(file, '.md') + '.html';
-    jade.renderFile(__dirname + '/assets/template.jade', {
-      pretty: true,
-      title: argv.title || 'GitHub Flavored Markdown',
-      content: marked(data)
-    }, function (error, html) {
-      if (error) {
-        throw error;
-      }
-      fs.writeFileSync(name, html, {encoding: 'utf8', flag: 'w'});
+    marked(data, function (error, content) {
+      jade.renderFile(__dirname + '/assets/template.jade', {
+        pretty: true,
+        title: argv.title || 'GitHub Flavored Markdown',
+        content: content
+      }, function (error, html) {
+        if (error) {
+          throw error;
+        }
+        fs.writeFileSync(name, html, {encoding: 'utf8', flag: 'w'});
+      });
     });
   });
 }, function (error, result) {

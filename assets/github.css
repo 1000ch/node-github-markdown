@@ -1,10 +1,11 @@
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
 body {
-  font-family: Helvetica, arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background-color: white;
+  font: 13px Helvetica, arial, freesans, clean, sans-serif;
+  line-height: 1.4;
+  background-color: #fff;
   padding: 30px;
   color: #333;
 }
@@ -38,10 +39,11 @@ a.anchor {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  margin: 20px 0 10px;
+  margin: 1em 0 15px;
   padding: 0;
   font-weight: bold;
   -webkit-font-smoothing: antialiased;
+  line-height: 1.7;
   cursor: text;
   position: relative;
 }
@@ -80,31 +82,30 @@ h6 tt, h6 code {
 }
 
 h1 {
-  font-size: 28px;
-  color: black;
+  font-size: 2.5em;
+  border-bottom: 1px solid #ddd;
 }
 
 h2 {
-  font-size: 24px;
-  border-bottom: 1px solid #cccccc;
-  color: black;
+  font-size: 2em;
+  border-bottom: 1px solid #eee;
 }
 
 h3 {
-  font-size: 18px;
+  font-size: 1.5em;
 }
 
 h4 {
-  font-size: 16px;
+  font-size: 1.2em;
 }
 
 h5 {
-  font-size: 14px;
+  font-size: 1em;
 }
 
 h6 {
-  color: #777777;
-  font-size: 14px;
+  color: #777;
+  font-size: 1em;
 }
 
 p, blockquote, ul, ol, dl, li, table, pre {
@@ -114,9 +115,10 @@ p, blockquote, ul, ol, dl, li, table, pre {
 hr {
   background: transparent url("http://tinyurl.com/bq5kskr") repeat-x 0 0;
   border: 0 none;
-  color: #cccccc;
+  color: #ccc;
   height: 4px;
   padding: 0;
+  margin: 15px 0;
 }
 
 body > h2:first-child {
@@ -371,7 +373,7 @@ pre code {
   border-radius: 3px;
 }
 
-pre {
+/*pre {
   background-color: #f8f8f8;
   border: 1px solid #cccccc;
   font-size: 13px;
@@ -379,7 +381,7 @@ pre {
   overflow: auto;
   padding: 6px 10px;
   border-radius: 3px;
-}
+}*/
 
 pre code, pre tt {
   background-color: transparent;
