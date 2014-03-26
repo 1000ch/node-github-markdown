@@ -29,7 +29,7 @@ $ githubmd readme.md
 Specify HTML title.
 
 ```sh
-$ githubmd --title='Title of HTML' target.md
+$ githubmd target.md
 ```
 
 ## License

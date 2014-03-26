@@ -3,27 +3,14 @@
 var fs = require('fs');
 var path = require('path');
 
-var argv = require('optimist').argv;
-var jade = require('jade');
-var marked = require('marked');
-var pygmentize = require('pygmentize-bundled');
+var minimist = require('minimist');
 var glob = require('glob');
 var async = require('async');
 
-marked.setOptions({
-  gfm: true,
-  tables: true,
-  breaks: true,
-  pedantic: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false,
-  highlight: function (code, lang, callback) {
-    pygmentize({ lang: lang, format: 'html' }, code, function (error, result) {
-      callback(error, result.toString());
-    });
-  }
-});
+var GFM = require('./gfm');
+var util = require('./lib/util');
+
+var argv = minimist(process.argv.slice(2));
 
 if (argv._.length === 0) {
   throw new Error('There is no arguments.');
@@ -34,9 +21,9 @@ var targetFiles = [];
 argv._.filter(function (arg) {
   return fs.existsSync(arg);
 }).forEach(function (arg) {
-  if (_isFile(arg)) {
+  if (util.isFile(arg)) {
     targetFiles.push(arg);
-  } else if (_isDir(arg)) {
+  } else if (util.isDirectory(arg)) {
     fs.readdirSync(arg).forEach(function (file) {
       targetFiles.push(file);
     });
@@ -54,24 +41,22 @@ if (targetFiles.length === 0) {
 }
 
 async.each(targetFiles, function (file, index, files) {
-  fs.readFile(file, {encoding: 'utf8'}, function (error, data) {
-    if (error) {
-      throw error;
-    }
-    var name = path.basename(file, '.md') + '.html';
-    marked(data, function (error, content) {
-      jade.renderFile(__dirname + '/assets/template.jade', {
-        pretty: true,
-        title: argv.title || 'GitHub Flavored Markdown',
-        content: content
-      }, function (error, html) {
-        if (error) {
-          throw error;
-        }
-        fs.writeFileSync(name, html, {encoding: 'utf8', flag: 'w'});
-      });
+
+  var name = path.basename(file, '.md') + '.html';
+  var dest;
+  if (argv.dest) {
+    dest = path.join(path.dirname(argv.dest), name);
+  } else {
+    dest = path.join(process.cwd(), name);
+  }
+
+  new GFM(file).render(function (html) {
+    fs.writeFileSync(dest, html, {
+      encoding: 'utf8',
+      flag: 'w'
     });
   });
+
 }, function (error, result) {
   if (error) {
     throw error;
@@ -79,12 +64,3 @@ async.each(targetFiles, function (file, index, files) {
   console.log(result);
 });
 
-function _isDir() {
-  var dir = path.join.apply(path, arguments);
-  return fs.existsSync(dir) && fs.statSync(dir).isDirectory();
-}
-
-function _isFile() {
-  var file = path.join.apply(path, arguments);
-  return fs.existsSync(file) && fs.statSync(file).isFile();
-}
