@@ -29,7 +29,23 @@ $ githubmd readme.md
 Specify HTML title.
 
 ```sh
-$ githubmd target.md
+$ githubmd --title Target target.md
+```
+
+### `--dest`
+
+Specify the destination file.
+
+```sh
+$ githubmd --dest index.html readme.md
+```
+
+### `--template`
+
+Specify custom template (defaults to standard template)
+
+```sh
+$ githubmd --template custom.jade markdown.md
 ```
 
 ## License

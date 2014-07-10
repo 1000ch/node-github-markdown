@@ -50,7 +50,7 @@ async.each(targetFiles, function (file, index, files) {
     dest = path.join(process.cwd(), name);
   }
 
-  new GFM(file).render(function (html) {
+  new GFM(file).render(argv.template, function (html) {
     fs.writeFileSync(dest, html, {
       encoding: 'utf8',
       flag: 'w'
