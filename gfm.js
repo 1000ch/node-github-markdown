@@ -31,7 +31,12 @@ function GFM(file) {
   }
 }
 
-GFM.prototype.render = function (callback) {
+GFM.prototype.render = function (template, callback) {
+  if (template) {
+    template = path.join(process.cwd(), template);
+  } else {
+    template = __dirname + '/assets/template.jade';
+  }
   var name = path.basename(this.file);
   var buffer = fs.readFileSync(this.file, {
     encoding: 'utf8'
@@ -40,7 +45,7 @@ GFM.prototype.render = function (callback) {
     if (error) {
       throw error;
     }
-    jade.renderFile(__dirname + '/assets/template.jade', {
+    jade.renderFile(template, {
       pretty: true,
       title: name,
       content: content
