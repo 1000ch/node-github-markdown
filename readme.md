@@ -8,8 +8,6 @@ Parse GitHub flavored markdown to html.
 [![Dependency Status](https://david-dm.org/1000ch/node-github-markdown.svg)](https://david-dm.org/1000ch/node-github-markdown)
 [![devDependency Status](https://david-dm.org/1000ch/node-github-markdown/dev-status.svg)](https://david-dm.org/1000ch/node-github-markdown#info=devDependencies)
 
-[![NPM](https://nodei.co/npm/github-markdown.png)](https://nodei.co/npm/github-markdown/)
-
 ## Usage
 
 Install.
