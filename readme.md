@@ -2,7 +2,7 @@
 
 ## About
 
-Parse GitHub flavored markdown to html.
+Parse GitHub flavored markdown to static html.
 
 [![NPM version](https://badge.fury.io/js/github-markdown.svg)](http://badge.fury.io/js/github-markdown)
 [![Dependency Status](https://david-dm.org/1000ch/node-github-markdown.svg)](https://david-dm.org/1000ch/node-github-markdown)
@@ -19,7 +19,7 @@ $ npm install -g github-markdown
 Parse markdowns.
 
 ```sh
-$ githubmd readme.md
+$ ghmd readme.md
 ```
 
 ### `--title`
@@ -27,7 +27,7 @@ $ githubmd readme.md
 Specify HTML title.
 
 ```sh
-$ githubmd --title Target target.md
+$ ghmd --title Target target.md
 ```
 
 ### `--dest`
@@ -35,7 +35,7 @@ $ githubmd --title Target target.md
 Specify the destination file.
 
 ```sh
-$ githubmd --dest index.html readme.md
+$ ghmd --dest index.html readme.md
 ```
 
 ### `--template`
@@ -43,7 +43,7 @@ $ githubmd --dest index.html readme.md
 Specify custom template (defaults to standard template)
 
 ```sh
-$ githubmd --template custom.jade markdown.md
+$ ghmd --template custom.jade markdown.md
 ```
 
 ## License

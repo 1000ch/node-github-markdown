@@ -7,7 +7,7 @@
     "url": "git@github.com:1000ch/node-github-markdown.git"
   },
   "bin": {
-    "githubmd": "index.js"
+    "ghmd": "index.js"
   },
   "keywords": [
     "markdown"
@@ -20,12 +20,12 @@
   "license": "MIT",
   "dependencies": {
     "async": "^0.9.0",
-    "glob": "^4.0.3",
-    "highlight.js": "^8.0.0",
+    "glob": "^4.0.5",
+    "highlight.js": "^8.1.0",
     "jade": "^1.5.0",
     "markdown.css": "^0.1.0",
     "marked": "^0.3.2",
-    "minimist": "^0.2.0",
+    "minimist": "^1.1.0",
     "underscore": "^1.6.0"
   }
 }
