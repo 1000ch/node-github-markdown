@@ -23,6 +23,7 @@
     "glob": "^4.0.3",
     "highlight.js": "^8.0.0",
     "jade": "^1.5.0",
+    "markdown.css": "^0.1.0",
     "marked": "^0.3.2",
     "minimist": "^0.2.0",
     "underscore": "^1.6.0"
