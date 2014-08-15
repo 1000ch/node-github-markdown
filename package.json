@@ -12,12 +12,17 @@
   "keywords": [
     "markdown"
   ],
-  "author": "1000ch",
+  "author": {
+    "name": "1000ch",
+    "email": "shogo.sensui@gmail.com",
+    "web": "http://github.com/1000ch"
+  },
   "license": "MIT",
   "dependencies": {
     "async": "^0.9.0",
     "glob": "^4.0.3",
     "highlight.js": "^8.0.0",
+    "jade": "^1.5.0",
     "marked": "^0.3.2",
     "minimist": "^0.2.0",
     "underscore": "^1.6.0"

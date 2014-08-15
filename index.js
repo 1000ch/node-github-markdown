@@ -8,7 +8,6 @@ var glob = require('glob');
 var async = require('async');
 
 var GFM = require('./gfm');
-var util = require('./lib/util');
 
 var argv = minimist(process.argv.slice(2));
 
@@ -16,41 +15,46 @@ if (argv._.length === 0) {
   throw new Error('There is no arguments.');
 }
 
-var targetFiles = [];
+var targets = [];
 
 argv._.filter(function (arg) {
   return fs.existsSync(arg);
 }).forEach(function (arg) {
-  if (util.isFile(arg)) {
-    targetFiles.push(arg);
-  } else if (util.isDirectory(arg)) {
+  if (fs.statSync(arg).isFile()) {
+    targets.push(arg);
+  } else if (fs.statSync(arg).isDirectory()) {
     fs.readdirSync(arg).forEach(function (file) {
-      targetFiles.push(file);
+      targets.push(file);
     });
   } else {
     glob(arg, function (error, files) {
       files.forEach(function (file) {
-        targetFiles.push(file);
+        targets.push(file);
       });
     });
   }
 });
 
-if (targetFiles.length === 0) {
+if (targets.length === 0) {
   throw new Error('There is no markdown files.');
 }
 
-async.each(targetFiles, function (file, index, files) {
+async.each(targets, function (file, index, files) {
 
-  var name = path.basename(file, '.md') + '.html';
+  var config = {
+    title: argv.title || path.basename(file, '.md'),
+    file: file,
+    template: argv.template
+  };
+
   var dest;
   if (argv.dest) {
-    dest = path.join(path.dirname(argv.dest), name);
+    dest = path.join(path.dirname(argv.dest), path.basename(file, '.md') + '.html');
   } else {
-    dest = path.join(process.cwd(), name);
+    dest = path.join(process.cwd(), path.basename(file, '.md') + '.html');
   }
 
-  new GFM(file).render(argv.template, function (html) {
+  new GFM(config).render(function (html) {
     fs.writeFileSync(dest, html, {
       encoding: 'utf8',
       flag: 'w'

@@ -6,8 +6,6 @@ var jade = require('jade');
 var marked = require('marked');
 var hljs = require('highlight.js');
 
-var util = require('./lib/util');
-
 marked.setOptions({
   gfm: true,
   tables: true,
@@ -21,33 +19,33 @@ marked.setOptions({
   }
 });
 
-function GFM(file) {
+function GFM(config) {
 
-  // markdown files
-  if (util.isFile(file) && path.extname(file) === '.md') {
-    this.file = file;
-  } else {
-    throw new Error(file + ' is not a markdown file.');
+  this.config = config || {};
+  this.title = this.config.title || path.basename(this.file);
+  this.file = this.config.file;
+  this.template = this.config.template ? path.join(process.cwd(), this.config.template) : __dirname + '/assets/template.jade';
+
+  if (!fs.existsSync(this.file) || !fs.statSync(this.file).isFile() || path.extname(this.file) !== '.md') {
+    throw new Error(this.file + ' is not a markdown file.');
   }
 }
 
-GFM.prototype.render = function (template, callback) {
-  if (template) {
-    template = path.join(process.cwd(), template);
-  } else {
-    template = __dirname + '/assets/template.jade';
-  }
-  var name = path.basename(this.file);
+GFM.prototype.render = function (callback) {
+
+  var title = this.title;
+  var template = this.template;
   var buffer = fs.readFileSync(this.file, {
     encoding: 'utf8'
   });
+
   marked(buffer, function (error, content) {
     if (error) {
       throw error;
     }
     jade.renderFile(template, {
       pretty: true,
-      title: name,
+      title: title,
       content: content
     }, function (error, html) {
       if (error) {
