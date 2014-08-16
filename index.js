@@ -1,70 +1,57 @@
-#!/usr/bin/env node
-
 var fs = require('fs');
 var path = require('path');
 
-var minimist = require('minimist');
-var glob = require('glob');
-var async = require('async');
+var _ = require('underscore');
+var jade = require('jade');
+var marked = require('marked');
+var hljs = require('highlight.js');
 
-var GHMD = require('./ghmd');
-
-var argv = minimist(process.argv.slice(2));
-
-if (argv._.length === 0) {
-  throw new Error('There is no arguments.');
-}
-
-var targets = [];
-
-argv._.filter(function (arg) {
-  return fs.existsSync(arg);
-}).forEach(function (arg) {
-  if (fs.statSync(arg).isFile()) {
-    targets.push(arg);
-  } else if (fs.statSync(arg).isDirectory()) {
-    fs.readdirSync(arg).forEach(function (file) {
-      targets.push(file);
-    });
-  } else {
-    glob(arg, function (error, files) {
-      files.forEach(function (file) {
-        targets.push(file);
-      });
-    });
+marked.setOptions({
+  gfm: true,
+  tables: true,
+  breaks: true,
+  pedantic: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false,
+  highlight: function (code) {
+    return hljs.highlightAuto(code).value;
   }
 });
 
-if (targets.length === 0) {
-  throw new Error('There is no markdown files.');
-}
+var GHMD = module.exports = function (config) {
 
-async.each(targets, function (file, index, files) {
+  this.config = config || {};
+  this.title = this.config.title || path.basename(this.file);
+  this.file = this.config.file;
+  this.template = this.config.template ? path.join(process.cwd(), this.config.template) : __dirname + '/assets/template.jade';
 
-  var config = {
-    title: argv.title || path.basename(file, '.md'),
-    file: file,
-    template: argv.template
-  };
-
-  var dest;
-  if (argv.dest) {
-    dest = path.join(path.dirname(argv.dest), path.basename(file, '.md') + '.html');
-  } else {
-    dest = path.join(process.cwd(), path.basename(file, '.md') + '.html');
+  if (!fs.existsSync(this.file) || !fs.statSync(this.file).isFile() || path.extname(this.file) !== '.md') {
+    throw new Error(this.file + ' is not a markdown file.');
   }
+};
 
-  new GHMD(config).render(function (html) {
-    fs.writeFileSync(dest, html, {
-      encoding: 'utf8',
-      flag: 'w'
-    });
+GHMD.prototype.render = function (callback) {
+
+  var title = this.title;
+  var template = this.template;
+  var buffer = fs.readFileSync(this.file, {
+    encoding: 'utf8'
   });
 
-}, function (error, result) {
-  if (error) {
-    throw error;
-  }
-  console.log(result);
-});
-
+  marked(buffer, function (error, content) {
+    if (error) {
+      throw error;
+    }
+    jade.renderFile(template, {
+      pretty: true,
+      title: title,
+      content: content
+    }, function (error, html) {
+      if (error) {
+        throw error;
+      }
+      callback(html);
+    });
+  });
+};

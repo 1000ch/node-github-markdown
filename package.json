@@ -7,7 +7,7 @@
     "url": "git@github.com:1000ch/node-github-markdown.git"
   },
   "bin": {
-    "ghmd": "index.js"
+    "ghmd": "cli.js"
   },
   "keywords": [
     "markdown"
@@ -26,6 +26,7 @@
     "markdown.css": "^0.1.0",
     "marked": "^0.3.2",
     "minimist": "^1.1.0",
+    "normalize.css": "^3.0.1",
     "underscore": "^1.6.0"
   }
 }
