@@ -19,7 +19,7 @@ marked.setOptions({
   }
 });
 
-function GFM(config) {
+function GHMD(config) {
 
   this.config = config || {};
   this.title = this.config.title || path.basename(this.file);
@@ -31,7 +31,7 @@ function GFM(config) {
   }
 }
 
-GFM.prototype.render = function (callback) {
+GHMD.prototype.render = function (callback) {
 
   var title = this.title;
   var template = this.template;
@@ -56,4 +56,4 @@ GFM.prototype.render = function (callback) {
   });
 };
 
-module.exports = GFM;
+module.exports = GHMD;

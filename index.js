@@ -7,7 +7,7 @@ var minimist = require('minimist');
 var glob = require('glob');
 var async = require('async');
 
-var GFM = require('./gfm');
+var GHMD = require('./ghmd');
 
 var argv = minimist(process.argv.slice(2));
 
@@ -54,7 +54,7 @@ async.each(targets, function (file, index, files) {
     dest = path.join(process.cwd(), path.basename(file, '.md') + '.html');
   }
 
-  new GFM(config).render(function (html) {
+  new GHMD(config).render(function (html) {
     fs.writeFileSync(dest, html, {
       encoding: 'utf8',
       flag: 'w'
