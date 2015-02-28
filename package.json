@@ -1,6 +1,6 @@
 {
   "name": "github-markdown",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Parse GitHub flavored markdown to html.",
   "repository": {
     "type": "git",
@@ -20,13 +20,13 @@
   "license": "MIT",
   "dependencies": {
     "async": "^0.9.0",
-    "glob": "^4.0.5",
-    "highlight.js": "^8.1.0",
-    "jade": "^1.5.0",
+    "glob": "^4.4.1",
+    "highlight.js": "^8.4.0",
+    "jade": "^1.9.2",
     "markdown.css": "^0.1.0",
-    "marked": "^0.3.2",
+    "marked": "^0.3.3",
     "minimist": "^1.1.0",
-    "normalize.css": "^3.0.1",
-    "underscore": "^1.6.0"
+    "normalize.css": "^3.0.2",
+    "underscore": "^1.8.2"
   }
 }
