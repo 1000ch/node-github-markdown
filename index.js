@@ -24,9 +24,15 @@ var GHMD = module.exports = function (config) {
   this.config = config || {};
   this.title = this.config.title || path.basename(this.file);
   this.file = this.config.file;
-  this.template = this.config.template ? path.join(process.cwd(), this.config.template) : __dirname + '/assets/template.jade';
+  this.template = this.config.template || path.join(__dirname, '/assets/template.jade');
 
-  if (!fs.existsSync(this.file) || !fs.statSync(this.file).isFile() || path.extname(this.file) !== '.md') {
+  if (!path.isAbsolute(this.template)) {
+    this.template = path.join(process.cwd(), this.config.template);
+  }
+
+  if (!fs.existsSync(this.file) || 
+      !fs.statSync(this.file).isFile() || 
+      path.extname(this.file) !== '.md') {
     throw new Error(this.file + ' is not a markdown file.');
   }
 };
