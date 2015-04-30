@@ -52,7 +52,8 @@ async.each(targets, function (file, index, files) {
     dest = path.join(process.cwd(), path.basename(file, '.md') + '.html');
   }
 
-  new GHMD(config).render(function (html) {
+  var ghmd = new GHMD(config);
+  ghmd.render().then(function (html) {
     fs.writeFileSync(dest, html, {
       encoding: 'utf8',
       flag: 'w'

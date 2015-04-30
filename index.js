@@ -1,7 +1,6 @@
 var fs = require('fs');
 var path = require('path');
 
-var _ = require('underscore');
 var jade = require('jade');
 var marked = require('marked');
 var hljs = require('highlight.js');
@@ -37,7 +36,7 @@ var GHMD = module.exports = function (config) {
   }
 };
 
-GHMD.prototype.render = function (callback) {
+GHMD.prototype.render = function () {
 
   var title = this.title;
   var template = this.template;
@@ -45,19 +44,28 @@ GHMD.prototype.render = function (callback) {
     encoding: 'utf8'
   });
 
-  marked(buffer, function (error, content) {
-    if (error) {
-      throw error;
-    }
-    jade.renderFile(template, {
-      pretty: true,
-      title: title,
-      content: content
-    }, function (error, html) {
+  var promise = new Promise(function (resolve, reject) {
+
+    marked(buffer, function (error, content) {
+
       if (error) {
-        throw error;
+        reject(error);
       }
-      callback(html);
+
+      jade.renderFile(template, {
+        pretty: true,
+        title: title,
+        content: content
+      }, function (error, html) {
+
+        if (error) {
+          reject(error);
+        }
+
+        resolve(html);
+      });
     });
   });
+
+  return promise;
 };
