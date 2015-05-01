@@ -4,6 +4,7 @@
 
 Parse GitHub flavored markdown to static html.
 
+[![Build Status](https://travis-ci.org/1000ch/node-github-markdown.svg?branch=master)](https://travis-ci.org/1000ch/node-github-markdown)
 [![NPM version](https://badge.fury.io/js/github-markdown.svg)](http://badge.fury.io/js/github-markdown)
 [![Dependency Status](https://david-dm.org/1000ch/node-github-markdown.svg)](https://david-dm.org/1000ch/node-github-markdown)
 [![devDependency Status](https://david-dm.org/1000ch/node-github-markdown/dev-status.svg)](https://david-dm.org/1000ch/node-github-markdown#info=devDependencies)

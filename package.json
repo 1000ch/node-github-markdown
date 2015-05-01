@@ -6,11 +6,15 @@
     "type": "git",
     "url": "git@github.com:1000ch/node-github-markdown.git"
   },
+  "scripts": {
+    "test": "mocha --timeout=50000 --reporter=spec test/test.js"
+  },
   "bin": {
     "ghmd": "cli.js"
   },
   "keywords": [
-    "markdown"
+    "markdown",
+    "GitHub"
   ],
   "author": {
     "name": "1000ch",
@@ -27,5 +31,10 @@
     "minimist": "^1.1.1",
     "primer": "git://github.com/primer/primer.git",
     "primer-markdown": "git://github.com/primer/markdown.git"
+  },
+  "devDependencies": {
+    "is-html": "^1.0.0",
+    "mocha": "^2.2.4",
+    "power-assert": "^0.11.0"
   }
 }
