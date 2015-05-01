@@ -23,9 +23,9 @@
     "glob": "^5.0.5",
     "highlight.js": "^8.5.0",
     "jade": "^1.9.2",
-    "markdown.css": "^0.1.1",
     "marked": "^0.3.3",
     "minimist": "^1.1.1",
-    "normalize.css": "^3.0.3"
+    "primer": "git://github.com/primer/primer.git",
+    "primer-markdown": "git://github.com/primer/markdown.git"
   }
 }
