@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
-var path = require('path');
-var minimist = require('minimist');
-var glob = require('glob');
-var async = require('async');
-var GHMD = require('./');
+var fs             = require('fs');
+var path           = require('path');
+var minimist       = require('minimist');
+var glob           = require('glob');
+var async          = require('async');
+var GitHubMarkdown = require('./');
 
 var argv = minimist(process.argv.slice(2));
 
@@ -47,12 +47,18 @@ async.each(targets, function (file, index, files) {
 
   var dest;
   if (argv.dest) {
-    dest = path.join(path.dirname(argv.dest), path.basename(file, '.md') + '.html');
+    dest = path.join(
+      path.dirname(argv.dest), 
+      path.basename(file, '.md') + '.html'
+    );
   } else {
-    dest = path.join(process.cwd(), path.basename(file, '.md') + '.html');
+    dest = path.join(
+      process.cwd(),
+      path.basename(file, '.md') + '.html'
+    );
   }
 
-  var ghmd = new GHMD(config);
+  var ghmd = new GitHubMarkdown(config);
   ghmd.render().then(function (html) {
     fs.writeFileSync(dest, html, {
       encoding: 'utf8',

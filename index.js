@@ -18,7 +18,7 @@ marked.setOptions({
   }
 });
 
-var GHMD = module.exports = function (config) {
+var GitHubMarkdown = module.exports = function (config) {
 
   this.config = config || {};
   this.title = this.config.title || path.basename(this.file);
@@ -36,7 +36,7 @@ var GHMD = module.exports = function (config) {
   }
 };
 
-GHMD.prototype.render = function () {
+GitHubMarkdown.prototype.render = function () {
 
   var title = this.title;
   var template = this.template;
