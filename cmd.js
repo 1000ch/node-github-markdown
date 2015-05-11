@@ -22,7 +22,7 @@ if (argv.version) {
   process.stdout.write(package.version + '\n');
   process.exit();
 } else if (argv._.length === 0 || argv.help) {
-  process.stdout.write(fs.readFileSync('usage.txt'));
+  process.stdout.write(fs.readFileSync(path.join(__dirname, 'usage.txt')));
   process.exit();
 }
 
