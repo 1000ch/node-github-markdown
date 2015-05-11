@@ -33,7 +33,7 @@ $ ghmd --title Target target.md
 
 ### `--dest`
 
-Specify the destination file.
+Specify the destination file path.
 
 ```sh
 $ ghmd --dest index.html readme.md

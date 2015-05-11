@@ -1,0 +1,6 @@
+ghmd {OPTIONS} input.md
+
+  --title=TITLE     Specify HTML title
+  --dest=PATH       Specify the destination file path.
+  --template=PATH   Specify custom template (defaults to standard template)
+  --help            Show this message

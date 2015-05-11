@@ -7,10 +7,19 @@ var glob           = require('glob');
 var async          = require('async');
 var GitHubMarkdown = require('./');
 
-var argv = minimist(process.argv.slice(2));
+var argv = minimist(process.argv.slice(2), {
+  alias: {
+    t: 'title',
+    d: 'dest',
+    T: 'template',
+    h: 'help'
+  }
+});
 
-if (argv._.length === 0) {
-  throw new Error('There is no arguments.');
+if (argv._.length === 0 || argv.help) {
+  fs.createReadStream(
+    path.join(__dirname, 'usage.txt')
+  ).pipe(process.stdout);
 }
 
 var targets = [];
@@ -32,10 +41,6 @@ argv._.filter(function (arg) {
     });
   }
 });
-
-if (targets.length === 0) {
-  throw new Error('There is no markdown files.');
-}
 
 async.each(targets, function (file, index, files) {
 
@@ -70,6 +75,5 @@ async.each(targets, function (file, index, files) {
   if (error) {
     throw error;
   }
-  console.log(result);
 });
 
