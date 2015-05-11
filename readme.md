@@ -47,6 +47,14 @@ Specify custom template (defaults to standard template)
 $ ghmd --template custom.jade markdown.md
 ```
 
+## `--help`
+
+Show help message.
+
+## `--version`
+
+Show package version.
+
 ## License
 
 MIT
