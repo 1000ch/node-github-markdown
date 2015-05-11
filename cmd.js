@@ -6,20 +6,24 @@ var minimist       = require('minimist');
 var glob           = require('glob');
 var async          = require('async');
 var GitHubMarkdown = require('./');
+var package        = require('./package');
 
 var argv = minimist(process.argv.slice(2), {
   alias: {
     t: 'title',
     d: 'dest',
     T: 'template',
-    h: 'help'
+    h: 'help',
+    v: 'version'
   }
 });
 
-if (argv._.length === 0 || argv.help) {
-  fs.createReadStream(
-    path.join(__dirname, 'usage.txt')
-  ).pipe(process.stdout);
+if (argv.version) {
+  process.stdout.write(package.version + '\n');
+  process.exit();
+} else if (argv._.length === 0 || argv.help) {
+  process.stdout.write(fs.readFileSync('usage.txt'));
+  process.exit();
 }
 
 var targets = [];
