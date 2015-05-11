@@ -7,8 +7,7 @@ html
       include ./node_modules/primer/css/primer.css
       include ./node_modules/primer-markdown/dist/user-content.min.css
       include ./node_modules/highlight.js/styles/github.css
-    style
-      | .markdown-body {max-width: 960px; margin: 0 auto;}
   body
-    .markdown-body
-      !=content
+    .container
+      .markdown-body
+        !=content
