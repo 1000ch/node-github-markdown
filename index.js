@@ -6,7 +6,7 @@ var markdown = require('markdown-it');
 var hljs = require('highlight.js');
 
 var md = markdown({
-  langPrefix: 'hljs',
+  langPrefix: 'hljs ',
   highlight: function (string, lang) {
     try {
       if (lang) {
@@ -23,10 +23,10 @@ var md = markdown({
 
 var GitHubMarkdown = module.exports = function (config) {
 
-  this.config = config || {};
-  this.title = this.config.title || path.basename(this.file);
-  this.file = this.config.file;
-  this.template = this.config.template || path.join(__dirname, '/template.jade');
+  var config = config || {};
+  this.file = config.file;
+  this.title = config.title || path.basename(this.file);
+  this.template = config.template || path.join(__dirname, '/template.jade');
 
   if (!path.isAbsolute(this.template)) {
     this.template = path.join(process.cwd(), this.config.template);
@@ -49,24 +49,19 @@ GitHubMarkdown.prototype.render = function () {
 
   return new Promise(function (resolve, reject) {
 
-    md.render(buffer, function (error, content) {
+    var result = md.render(buffer);
+
+    jade.renderFile(template, {
+      pretty: true,
+      title: title,
+      content: result
+    }, function (error, html) {
 
       if (error) {
         reject(error);
       }
 
-      jade.renderFile(template, {
-        pretty: true,
-        title: title,
-        content: content
-      }, function (error, html) {
-
-        if (error) {
-          reject(error);
-        }
-
-        resolve(html);
-      });
+      resolve(html);
     });
   });
 };
