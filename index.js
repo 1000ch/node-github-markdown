@@ -2,19 +2,22 @@ var fs = require('fs');
 var path = require('path');
 
 var jade = require('jade');
-var marked = require('marked');
+var markdown = require('markdown-it');
 var hljs = require('highlight.js');
 
-marked.setOptions({
-  gfm: true,
-  tables: true,
-  breaks: true,
-  pedantic: false,
-  sanitize: false,
-  smartLists: true,
-  smartypants: false,
-  highlight: function (code) {
-    return hljs.highlightAuto(code).value;
+var md = markdown({
+  langPrefix: 'hljs',
+  highlight: function (string, lang) {
+    try {
+      if (lang) {
+        return hljs.highlight(lang, string).value;
+      } else {
+        return hljs.highlightAuto(code).value;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+    return '';
   }
 });
 
@@ -44,9 +47,9 @@ GitHubMarkdown.prototype.render = function () {
     encoding: 'utf8'
   });
 
-  var promise = new Promise(function (resolve, reject) {
+  return new Promise(function (resolve, reject) {
 
-    marked(buffer, function (error, content) {
+    md.render(buffer, function (error, content) {
 
       if (error) {
         reject(error);
@@ -66,6 +69,4 @@ GitHubMarkdown.prototype.render = function () {
       });
     });
   });
-
-  return promise;
 };
