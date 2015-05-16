@@ -57,4 +57,4 @@ Show package version.
 
 ## License
 
-MIT
+MIT: http://1000ch.mit-license.org
