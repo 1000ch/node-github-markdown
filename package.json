@@ -23,10 +23,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "async": "^0.9.0",
-    "glob": "^5.0.5",
-    "highlight.js": "^8.5.0",
-    "jade": "^1.9.2",
+    "async": "^1.2.0",
+    "glob": "^5.0.10",
+    "highlight.js": "^8.6.0",
+    "jade": "^1.10.0",
     "markdown-it": "^4.2.1",
     "minimist": "^1.1.1",
     "primer": "git://github.com/primer/primer.git",
@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "is-html": "^1.0.0",
-    "mocha": "^2.2.4",
+    "mocha": "^2.2.5",
     "power-assert": "^0.11.0"
   }
 }
