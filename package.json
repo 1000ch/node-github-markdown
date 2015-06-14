@@ -23,11 +23,12 @@
   },
   "license": "MIT",
   "dependencies": {
-    "async": "^1.2.0",
-    "glob": "^5.0.10",
+    "async": "^1.2.1",
     "highlight.js": "^8.6.0",
+    "is-md": "^1.0.0",
     "jade": "^1.10.0",
-    "markdown-it": "^4.2.1",
+    "ls-path": "^1.0.0",
+    "markdown-it": "^4.2.2",
     "minimist": "^1.1.1",
     "primer": "git://github.com/primer/primer.git",
     "primer-markdown": "git://github.com/primer/markdown.git"
