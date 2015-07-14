@@ -1,5 +1,6 @@
 var fs = require('fs');
 var path = require('path');
+var isAbsolute = require('path-is-absolute');
 
 var jade = require('jade');
 var markdown = require('markdown-it');
@@ -28,12 +29,12 @@ var GitHubMarkdown = module.exports = function (config) {
   this.title = config.title || path.basename(this.file);
   this.template = config.template || path.join(__dirname, '/template.jade');
 
-  if (!path.isAbsolute(this.template)) {
+  if (!isAbsolute(this.template)) {
     this.template = path.join(process.cwd(), this.config.template);
   }
 
-  if (!fs.existsSync(this.file) || 
-      !fs.statSync(this.file).isFile() || 
+  if (!fs.existsSync(this.file) ||
+      !fs.statSync(this.file).isFile() ||
       path.extname(this.file) !== '.md') {
     throw new Error(this.file + ' is not a markdown file.');
   }

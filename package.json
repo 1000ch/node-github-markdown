@@ -30,6 +30,7 @@
     "ls-path": "^1.0.0",
     "markdown-it": "^4.2.2",
     "minimist": "^1.1.1",
+    "path-is-absolute": "^1.0.0",
     "primer": "git://github.com/primer/primer.git",
     "primer-markdown": "git://github.com/primer/markdown.git"
   },
