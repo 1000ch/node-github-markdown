@@ -1,4 +1,5 @@
 ghmd {OPTIONS} input.md
+github-markdown {OPTIONS} input.md
 
   -t --title=TITLE      Specify HTML title
   -d --dest=PATH        Specify the destination file path.
