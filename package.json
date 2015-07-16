@@ -10,7 +10,8 @@
     "test": "mocha --timeout=50000 --reporter=spec test/test.js"
   },
   "bin": {
-    "ghmd": "cmd.js"
+    "ghmd": "cmd.js",
+    "github-markdown": "cmd.js"
   },
   "keywords": [
     "markdown",
