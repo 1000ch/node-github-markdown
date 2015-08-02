@@ -1,6 +1,6 @@
 {
   "name": "github-markdown",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "Parse GitHub flavored markdown to html.",
   "repository": {
     "type": "git",
@@ -24,13 +24,13 @@
   },
   "license": "MIT",
   "dependencies": {
-    "async": "^1.2.1",
-    "highlight.js": "^8.6.0",
+    "async": "^1.4.0",
+    "highlight.js": "^8.7.0",
     "is-md": "^1.0.0",
-    "jade": "^1.10.0",
-    "ls-path": "^1.0.0",
-    "markdown-it": "^4.2.2",
-    "minimist": "^1.1.1",
+    "jade": "^1.11.0",
+    "ls-path": "^1.0.3",
+    "markdown-it": "^4.4.0",
+    "minimist": "^1.1.2",
     "path-is-absolute": "^1.0.0",
     "primer": "git://github.com/primer/primer.git",
     "primer-markdown": "git://github.com/primer/markdown.git"
