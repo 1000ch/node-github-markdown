@@ -7,7 +7,7 @@
     "url": "git@github.com:1000ch/node-github-markdown.git"
   },
   "scripts": {
-    "test": "mocha --timeout=50000 --reporter=spec test/test.js"
+    "test": "mocha --require intelli-espower-loader --timeout=50000 --reporter=spec test/test.js"
   },
   "bin": {
     "ghmd": "cmd.js",
@@ -36,6 +36,8 @@
     "primer-markdown": "git://github.com/primer/markdown.git"
   },
   "devDependencies": {
+    "espower-loader": "^1.0.0",
+    "intelli-espower-loader": "^1.0.0",
     "is-html": "^1.0.0",
     "mocha": "^2.2.5",
     "power-assert": "^1.0.0"
