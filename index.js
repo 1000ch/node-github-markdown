@@ -1,14 +1,13 @@
-var fs = require('fs');
-var path = require('path');
-var isAbsolute = require('path-is-absolute');
+const fs         = require('fs');
+const path       = require('path');
+const isAbsolute = require('path-is-absolute');
+const jade       = require('jade');
+const markdown   = require('markdown-it');
+const hljs       = require('highlight.js');
 
-var jade = require('jade');
-var markdown = require('markdown-it');
-var hljs = require('highlight.js');
-
-var md = markdown({
+let md = markdown({
   langPrefix: 'hljs ',
-  highlight: function (string, lang) {
+  highlight: (string, lang) => {
     try {
       if (lang) {
         return hljs.highlight(lang, string).value;
@@ -16,53 +15,56 @@ var md = markdown({
         return hljs.highlightAuto(code).value;
       }
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
     return '';
   }
 });
 
-var GitHubMarkdown = module.exports = function (config) {
+class GitHubMarkdown {
 
-  var config = config || {};
-  this.file = config.file;
-  this.title = config.title || path.basename(this.file);
-  this.template = config.template || path.join(__dirname, '/template.jade');
+  constructor(config = {}) {
 
-  if (!isAbsolute(this.template)) {
-    this.template = path.join(process.cwd(), this.config.template);
+    this.file = config.file;
+    this.title = config.title || path.basename(this.file);
+    this.template = config.template || path.join(__dirname, '../template.jade');
+
+    if (!isAbsolute(this.template)) {
+      this.template = path.join(process.cwd(), this.config.template);
+    }
+
+    if (!fs.existsSync(this.file)) {
+      throw new Error(`${this.file} does not exist`);
+    }
+
+    if (!fs.statSync(this.file).isFile()) {
+      throw new Error(`${this.file} is not a markdown file`);
+    }
   }
 
-  if (!fs.existsSync(this.file) ||
-      !fs.statSync(this.file).isFile() ||
-      path.extname(this.file) !== '.md') {
-    throw new Error(this.file + ' is not a markdown file.');
-  }
-};
+  render() {
 
-GitHubMarkdown.prototype.render = function () {
+    return new Promise((resolve, reject) => {
 
-  var title = this.title;
-  var template = this.template;
-  var buffer = fs.readFileSync(this.file, {
-    encoding: 'utf8'
-  });
+      let string = fs.readFileSync(this.file).toString();
+      let html = md.render(string);
 
-  return new Promise(function (resolve, reject) {
+      let options = {
+        pretty: true,
+        title: this.title,
+        content: html
+      };
 
-    var result = md.render(buffer);
+      jade.renderFile(this.template, options, (error, html) => {
 
-    jade.renderFile(template, {
-      pretty: true,
-      title: title,
-      content: result
-    }, function (error, html) {
+        if (error) {
+          reject(error);
+        }
 
-      if (error) {
-        reject(error);
-      }
-
-      resolve(html);
+        resolve(html);
+      });
     });
-  });
-};
+  }
+}
+
+module.exports = GitHubMarkdown;

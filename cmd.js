@@ -1,15 +1,14 @@
 #!/usr/bin/env node
 
-var fs             = require('fs');
-var path           = require('path');
-var minimist       = require('minimist');
-var lspath         = require('ls-path');
-var isMarkdown     = require('is-md');
-var async          = require('async');
-var GitHubMarkdown = require('./');
-var package        = require('./package');
+const fs             = require('fs');
+const path           = require('path');
+const minimist       = require('minimist');
+const listy          = require('listy');
+const isMarkdown     = require('is-md');
+const async          = require('async');
+const GitHubMarkdown = require('./');
 
-var argv = minimist(process.argv.slice(2), {
+let argv = minimist(process.argv.slice(2), {
   alias: {
     t: 'title',
     d: 'dest',
@@ -20,41 +19,36 @@ var argv = minimist(process.argv.slice(2), {
 });
 
 if (argv.version) {
-  process.stdout.write(package.version + '\n');
+  process.stdout.write(require('../package').version + '\n');
   process.exit();
 } else if (argv._.length === 0 || argv.help) {
-  process.stdout.write(fs.readFileSync(path.join(__dirname, 'usage.txt')));
+  process.stdout.write(fs.readFileSync(path.join(__dirname, '../usage.txt')));
   process.exit();
 }
 
-lspath(argv._, function (error, paths) {
+let options = {
+  filter: p => isMarkdown(p)
+};
 
-  var markdowns = paths.filter(function (p) {
-    return isMarkdown(p);
-  });
+listy(argv._, options).then(markdowns => {
 
-  async.each(markdowns, function (file, index, files) {
+  async.each(markdowns, (file, index, files) => {
 
-    var config = {
+    let config = {
       title: argv.title || path.basename(file, '.md'),
       file: file,
       template: argv.template
     };
 
-    var dest;
+    let dest;
+    let filename = path.basename(file, '.md') + '.html';
     if (argv.dest) {
-      dest = path.join(
-        path.dirname(argv.dest),
-        path.basename(file, '.md') + '.html'
-      );
+      dest = path.join(path.dirname(argv.dest), filename);
     } else {
-      dest = path.join(
-        process.cwd(),
-        path.basename(file, '.md') + '.html'
-      );
+      dest = path.join(process.cwd(), filename);
     }
 
-    var ghmd = new GitHubMarkdown(config);
+    let ghmd = new GitHubMarkdown(config);
     ghmd.render().then(function (html) {
       fs.writeFileSync(dest, html, {
         encoding: 'utf8',
@@ -62,7 +56,7 @@ lspath(argv._, function (error, paths) {
       });
     });
 
-  }, function (error, result) {
+  }, (error, result) => {
     if (error) {
       throw error;
     }

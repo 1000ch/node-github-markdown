@@ -1,14 +1,13 @@
 'use strict';
 
 var path = require('path');
-
 var assert = require('power-assert');
 var isHTML = require('is-html');
-var GitHubMarkdown = require('../index');
+var GitHubMarkdown = require('../dist/index');
 
 it('should out html', function (callback) {
 
-  this.timeout(10000);
+  this.timeout(5000);
   
   var file = path.join(__dirname, '../readme.md');
   var ghmd = new GitHubMarkdown({
