@@ -1,3 +1,5 @@
+'use strict';
+
 const fs         = require('fs');
 const path       = require('path');
 const isAbsolute = require('path-is-absolute');
@@ -23,11 +25,13 @@ let md = markdown({
 
 class GitHubMarkdown {
 
-  constructor(config = {}) {
+  constructor(config) {
+
+    config = config || {}
 
     this.file = config.file;
     this.title = config.title || path.basename(this.file);
-    this.template = config.template || path.join(__dirname, '../template.jade');
+    this.template = config.template || path.join(__dirname, './template.jade');
 
     if (!isAbsolute(this.template)) {
       this.template = path.join(process.cwd(), this.config.template);

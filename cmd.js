@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict';
+
 const fs             = require('fs');
 const path           = require('path');
 const minimist       = require('minimist');
@@ -19,10 +21,10 @@ let argv = minimist(process.argv.slice(2), {
 });
 
 if (argv.version) {
-  process.stdout.write(require('../package').version + '\n');
+  process.stdout.write(require('./package').version + '\n');
   process.exit();
 } else if (argv._.length === 0 || argv.help) {
-  process.stdout.write(fs.readFileSync(path.join(__dirname, '../usage.txt')));
+  process.stdout.write(fs.readFileSync('./usage.txt'));
   process.exit();
 }
 

@@ -3,7 +3,7 @@
 var path = require('path');
 var assert = require('power-assert');
 var isHTML = require('is-html');
-var GitHubMarkdown = require('../dist/');
+var GitHubMarkdown = require('../');
 
 it('should out html', function (callback) {
 
