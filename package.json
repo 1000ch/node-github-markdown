@@ -1,6 +1,6 @@
 {
   "name": "github-markdown",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Parse GitHub flavored markdown to html.",
   "main": "dist/index.js",
   "repository": {
@@ -31,11 +31,11 @@
     "is-md": "^1.0.0",
     "jade": "^1.11.0",
     "listy": "^1.0.6",
-    "markdown-it": "^4.4.0",
+    "markdown-it": "^5.0.0",
     "minimist": "^1.2.0",
     "path-is-absolute": "^1.0.0",
-    "primer": "git://github.com/primer/primer.git",
-    "primer-markdown": "git://github.com/primer/markdown.git"
+    "primer-css": "^2.3.5",
+    "primer-markdown": "^2.2.3"
   },
   "devDependencies": {
     "babel": "^5.8.23",
@@ -43,6 +43,6 @@
     "intelli-espower-loader": "^1.0.0",
     "is-html": "^1.0.0",
     "mocha": "^2.3.3",
-    "power-assert": "^1.0.1"
+    "power-assert": "^1.1.0"
   }
 }
