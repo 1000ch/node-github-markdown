@@ -1,8 +1,8 @@
 {
   "name": "github-markdown",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Parse GitHub flavored markdown to html.",
-  "main": "dist/index.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:1000ch/node-github-markdown.git"

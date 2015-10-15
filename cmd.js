@@ -28,11 +28,9 @@ if (argv.version) {
   process.exit();
 }
 
-let options = {
+listy(argv._, {
   filter: p => isMarkdown(p)
-};
-
-listy(argv._, options).then(markdowns => {
+}).then(markdowns => {
 
   async.each(markdowns, (file, index, files) => {
 

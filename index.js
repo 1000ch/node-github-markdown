@@ -7,22 +7,6 @@ const jade       = require('jade');
 const markdown   = require('markdown-it');
 const hljs       = require('highlight.js');
 
-let md = markdown({
-  langPrefix: 'hljs ',
-  highlight: (string, lang) => {
-    try {
-      if (lang) {
-        return hljs.highlight(lang, string).value;
-      } else {
-        return hljs.highlightAuto(code).value;
-      }
-    } catch (e) {
-      console.error(e);
-    }
-    return '';
-  }
-});
-
 class GitHubMarkdown {
 
   constructor(config) {
@@ -44,6 +28,22 @@ class GitHubMarkdown {
     if (!fs.statSync(this.file).isFile()) {
       throw new Error(`${this.file} is not a markdown file`);
     }
+
+    this.md = markdown({
+      langPrefix: 'hljs ',
+      highlight: (string, lang) => {
+        try {
+          if (lang) {
+            return hljs.highlight(lang, string).value;
+          } else {
+            return hljs.highlightAuto(code).value;
+          }
+        } catch (e) {
+          console.error(e);
+        }
+        return '';
+      }
+    });
   }
 
   render() {
@@ -51,7 +51,7 @@ class GitHubMarkdown {
     return new Promise((resolve, reject) => {
 
       let string = fs.readFileSync(this.file).toString();
-      let html = md.render(string);
+      let html = this.md.render(string);
 
       let options = {
         pretty: true,
