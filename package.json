@@ -1,14 +1,14 @@
 {
   "name": "github-markdown",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Parse GitHub flavored markdown to html.",
   "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:1000ch/node-github-markdown.git"
   },
-  "engines" : {
-    "node" : ">=4.0.0"
+  "engines": {
+    "node": ">=4.0.0"
   },
   "scripts": {
     "test": "mocha --require intelli-espower-loader --timeout=50000 --reporter=spec test/test.js"
@@ -28,19 +28,18 @@
   },
   "license": "MIT",
   "dependencies": {
-    "async": "^1.4.2",
+    "async": "^1.5.0",
     "highlight.js": "^8.8.0",
     "is-md": "^1.0.0",
     "jade": "^1.11.0",
-    "listy": "^1.0.6",
-    "markdown-it": "^5.0.0",
+    "listy": "^1.1.1",
+    "markdown-it": "^5.0.1",
     "minimist": "^1.2.0",
     "path-is-absolute": "^1.0.0",
-    "primer-css": "^2.3.5",
-    "primer-markdown": "^2.2.3"
+    "primer-css": "^2.4.0",
+    "primer-markdown": "^2.3.0"
   },
   "devDependencies": {
-    "babel": "^5.8.23",
     "espower-loader": "^1.0.0",
     "intelli-espower-loader": "^1.0.0",
     "is-html": "^1.0.0",
