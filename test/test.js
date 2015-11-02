@@ -1,21 +1,21 @@
 'use strict';
 
-var path = require('path');
-var assert = require('power-assert');
-var isHTML = require('is-html');
-var GitHubMarkdown = require('../');
+const path = require('path');
+const assert = require('power-assert');
+const isHTML = require('is-html');
+const GitHubMarkdown = require('../');
 
 it('should out html', function (callback) {
 
   this.timeout(5000);
 
-  var file = path.join(__dirname, '../readme.md');
-  var ghmd = new GitHubMarkdown({
+  let file = path.join(__dirname, '../readme.md');
+  let ghmd = new GitHubMarkdown({
     title: path.basename(file, '.md'),
     file: file
   });
 
-  ghmd.render().then(function (html) {
+  ghmd.render().then(html => {
     assert(isHTML(html));
     callback();
   });
