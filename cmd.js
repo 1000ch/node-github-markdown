@@ -2,12 +2,12 @@
 
 'use strict';
 
-const fs             = require('fs');
-const path           = require('path');
-const minimist       = require('minimist');
-const listy          = require('listy');
-const isMarkdown     = require('is-md');
-const async          = require('async');
+const fs = require('fs');
+const path = require('path');
+const minimist = require('minimist');
+const listy = require('listy');
+const isMarkdown = require('is-md');
+const async = require('async');
 const GitHubMarkdown = require('./');
 
 let argv = minimist(process.argv.slice(2), {
@@ -28,37 +28,35 @@ if (argv.version) {
   process.exit();
 }
 
-listy(argv._, {
+let markdowns = listy(argv._, {
   filter: p => isMarkdown(p)
-}).then(markdowns => {
+})
 
-  async.each(markdowns, (file, index, files) => {
+async.each(markdowns, (file, index, files) => {
+  let config = {
+    title: argv.title || path.basename(file, '.md'),
+    file: file,
+    template: argv.template
+  };
 
-    let config = {
-      title: argv.title || path.basename(file, '.md'),
-      file: file,
-      template: argv.template
-    };
+  let dest;
+  let filename = path.basename(file, '.md') + '.html';
+  if (argv.dest) {
+    dest = path.join(path.dirname(argv.dest), filename);
+  } else {
+    dest = path.join(process.cwd(), filename);
+  }
 
-    let dest;
-    let filename = path.basename(file, '.md') + '.html';
-    if (argv.dest) {
-      dest = path.join(path.dirname(argv.dest), filename);
-    } else {
-      dest = path.join(process.cwd(), filename);
-    }
-
-    let ghmd = new GitHubMarkdown(config);
-    ghmd.render().then(function (html) {
-      fs.writeFileSync(dest, html, {
-        encoding: 'utf8',
-        flag: 'w'
-      });
+  let ghmd = new GitHubMarkdown(config);
+  ghmd.render().then(function (html) {
+    fs.writeFileSync(dest, html, {
+      encoding: 'utf8',
+      flag: 'w'
     });
-
-  }, (error, result) => {
-    if (error) {
-      throw error;
-    }
   });
+
+}, (error, result) => {
+  if (error) {
+    throw error;
+  }
 });
