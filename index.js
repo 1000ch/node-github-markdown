@@ -36,7 +36,7 @@ class GitHubMarkdown {
           if (lang) {
             return hljs.highlight(lang, string).value;
           } else {
-            return hljs.highlightAuto(code).value;
+            return hljs.highlightAuto(string).value;
           }
         } catch (e) {
           console.error(e);
