@@ -7,55 +7,43 @@
 
 Parse GitHub flavored markdown to static html.
 
-## Installation
+## Install
 
 Install via npm.
 
 ```bash
-$ npm install github-markdown
-```
-
-`v2.0.0` requires Node.js `v4.0.0`~. If you are using older version of Node.js, specify the version `v1.2.3`.
-
-```bash
-$ npm install github-markdown@1.2.3
+$ npm install [--global] github-markdown
 ```
 
 ## Usage
 
-Install.
+Parse stdin.
 
-```sh
-$ npm install -g github-markdown
+```bash
+$ cat readme.md | ghmd --stdin
 ```
 
-Parse markdowns.
+Parse a markdown file.
 
-```sh
+```bash
+# readme.html
 $ ghmd readme.md
-```
-
-### `--title`
-
-Specify HTML title.
-
-```sh
-$ ghmd --title Target target.md
 ```
 
 ### `--dest`
 
-Specify the destination file path.
+Specify the destination.
 
-```sh
-$ ghmd --dest index.html readme.md
+```bash
+# foo/readme.html
+$ ghmd --dest foo readme.md
 ```
 
 ### `--template`
 
 Specify custom template (defaults to standard template)
 
-```sh
+```bash
 $ ghmd --template custom.jade markdown.md
 ```
 

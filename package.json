@@ -7,10 +7,10 @@
     "url": "git@github.com:1000ch/node-github-markdown.git"
   },
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=6.0.0"
   },
   "scripts": {
-    "test": "mocha --require intelli-espower-loader --timeout=50000 --reporter=spec test/test.js"
+    "test": "xo && ava"
   },
   "bin": {
     "ghmd": "cmd.js",
@@ -27,22 +27,23 @@
   },
   "license": "MIT",
   "dependencies": {
-    "async": "^2.1.4",
+    "get-stdin": "^5.0.1",
+    "globby": "^6.1.0",
     "highlight.js": "^9.2.0",
-    "is-md": "^1.0.0",
-    "jade": "^1.11.0",
-    "listy": "^2.0.1",
-    "markdown-it": "^8.2.2",
+    "markdown-it": "^8.3.1",
     "minimist": "^1.2.0",
-    "path-is-absolute": "^1.0.0",
-    "primer-css": "^4.7.0",
-    "primer-markdown": "^3.3.3"
+    "pify": "^2.3.0",
+    "primer-css": "^5.1.0",
+    "primer-markdown": "^3.3.3",
+    "pug": "^2.0.0-beta.12"
   },
   "devDependencies": {
-    "espower-loader": "^1.0.0",
-    "intelli-espower-loader": "^1.0.1",
+    "ava": "*",
+    "execa": "^0.6.3",
     "is-html": "^1.0.0",
-    "mocha": "^3.2.0",
-    "power-assert": "^1.3.1"
+    "xo": "*"
+  },
+  "xo": {
+    "space": 2
   }
 }

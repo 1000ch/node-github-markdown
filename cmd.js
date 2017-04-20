@@ -4,59 +4,50 @@
 
 const fs = require('fs');
 const path = require('path');
+const pify = require('pify');
 const minimist = require('minimist');
-const listy = require('listy');
-const isMarkdown = require('is-md');
-const async = require('async');
-const GitHubMarkdown = require('./');
+const globby = require('globby');
+const getStdin = require('get-stdin');
+const ghmd = require('.');
 
-let argv = minimist(process.argv.slice(2), {
+const fsP = pify(fs);
+const argv = minimist(process.argv.slice(2), {
   alias: {
-    t: 'title',
     d: 'dest',
-    T: 'template',
+    t: 'template',
     h: 'help',
     v: 'version'
   }
 });
 
-if (argv.version) {
+if (argv.v || argv.version) {
   process.stdout.write(require('./package').version + '\n');
   process.exit();
-} else if (argv._.length === 0 || argv.help) {
+} else if (argv.h || argv.help) {
   process.stdout.write(fs.readFileSync('./usage.txt'));
   process.exit();
 }
 
-let markdowns = listy(argv._, {
-  filter: p => isMarkdown(p)
-})
-
-async.each(markdowns, (file, index, files) => {
-  let config = {
-    title: argv.title || path.basename(file, '.md'),
-    file: file,
-    template: argv.template
-  };
-
-  let dest;
-  let filename = path.basename(file, '.md') + '.html';
-  if (argv.dest) {
-    dest = path.join(path.dirname(argv.dest), filename);
-  } else {
-    dest = path.join(process.cwd(), filename);
-  }
-
-  let ghmd = new GitHubMarkdown(config);
-  ghmd.render().then(function (html) {
-    fs.writeFileSync(dest, html, {
-      encoding: 'utf8',
-      flag: 'w'
-    });
+if (argv.stdin) {
+  getStdin().then(string => {
+    process.stdout.write(ghmd(string, {
+      template: argv.template
+    }));
   });
+} else {
+  globby(argv._).then(inputs => {
+    const dest = argv.dest ? path.dirname(argv.dest) : process.cwd();
 
-}, (error, result) => {
-  if (error) {
-    throw error;
-  }
-});
+    for (const input of inputs) {
+      const output = path.resolve(dest, `${path.basename(input, '.md')}.html`);
+      convert(input, argv.template, output);
+    }
+  });
+}
+
+function convert(input, template, output) {
+  return fsP.readFile(input)
+    .then(buffer => buffer.toString())
+    .then(markdown => ghmd(markdown, {template}))
+    .then(html => fsP.writeFile(output, html));
+}
