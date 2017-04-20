@@ -2,12 +2,15 @@
   "name": "github-markdown",
   "version": "2.3.0",
   "description": "Parse GitHub flavored markdown to html.",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:1000ch/node-github-markdown.git"
+  "license": "MIT",
+  "repository": "1000ch/node-github-markdown",
+  "author": {
+    "name": "Shogo Sensui",
+    "email": "shogo.sensui@gmail.com",
+    "url": "https://github.com/1000ch"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=6"
   },
   "scripts": {
     "test": "xo && ava"
@@ -18,14 +21,8 @@
   },
   "keywords": [
     "markdown",
-    "GitHub"
+    "github"
   ],
-  "author": {
-    "name": "1000ch",
-    "email": "shogo.sensui@gmail.com",
-    "web": "http://github.com/1000ch"
-  },
-  "license": "MIT",
   "dependencies": {
     "get-stdin": "^5.0.1",
     "globby": "^6.1.0",
