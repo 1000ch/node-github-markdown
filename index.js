@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const path = require('path');
 const pug = require('pug');
 const MarkdownIt = require('markdown-it');
@@ -28,6 +29,7 @@ module.exports = (markdown, config = {}) => {
   return pug.renderFile(template, {
     pretty: true,
     title,
-    content: markdownIt.render(markdown)
+    content: markdownIt.render(markdown),
+    flattenedDeps: fs.existsSync(path.join(__dirname, '..', 'primer-css', 'build', 'build.css'))
   });
 };
