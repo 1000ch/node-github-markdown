@@ -11,6 +11,7 @@ module.exports = (markdown, config = {}) => {
 
   const markdownIt = new MarkdownIt({
     langPrefix: 'hljs ',
+    html: true,
     highlight: (string, lang) => {
       try {
         if (lang) {
