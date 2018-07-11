@@ -4,6 +4,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const __appRoot = path.resolve(__dirname);
 const pify = require('pify');
 const minimist = require('minimist');
 const globby = require('globby');
@@ -21,12 +22,13 @@ const argv = minimist(process.argv.slice(2), {
 });
 
 if (argv.v || argv.version) {
-  process.stdout.write(require('./package').version + '\n');
+  process.stdout.write(require(`${__appRoot}/package`).version + '\n');
   process.exit();
 } else if (argv.h || argv.help) {
-  process.stdout.write(fs.readFileSync('./usage.txt'));
+  process.stdout.write(fs.readFileSync(`${__appRoot}/usage.txt`));
   process.exit();
 }
+
 
 if (argv.stdin) {
   getStdin().then(string => {
