@@ -30,6 +30,9 @@ module.exports = (markdown, config = {}) => {
     pretty: true,
     title,
     content: markdownIt.render(markdown),
-    flattenedDeps: fs.existsSync(path.join(__dirname, '..', 'primer-css', 'build', 'build.css'))
+    basedir: (fs.existsSync(path.join(__dirname, '..', 'primer-css', 'build', 'build.css'))
+      ? '..'
+      : './node_modules'
+    )
   });
 };
