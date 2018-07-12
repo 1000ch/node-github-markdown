@@ -3,3 +3,4 @@ node_modules
 .DS_Store
 *.html
 dist
+package-lock.json

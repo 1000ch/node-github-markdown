@@ -21,12 +21,13 @@ const argv = minimist(process.argv.slice(2), {
 });
 
 if (argv.v || argv.version) {
-  process.stdout.write(require('./package').version + '\n');
+  process.stdout.write(require(`${__dirname}/package`).version + '\n');
   process.exit();
 } else if (argv.h || argv.help) {
-  process.stdout.write(fs.readFileSync('./usage.txt'));
+  process.stdout.write(fs.readFileSync(`${__dirname}/usage.txt`));
   process.exit();
 }
+
 
 if (argv.stdin) {
   getStdin().then(string => {
